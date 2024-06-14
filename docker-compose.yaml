@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:16-bullseye
+    container_name: njm-postgres
+    restart: on-failure
+    environment:
+      - POSTGRES_PASSWORD=development
+      - POSTGRES_USER=development
+      - POSTGRES_DB=njm_store
+    ports:
+      - "5432:5432"
+    volumes:
+      - njm-store-postgres:/var/lib/postgresql/data
+    networks:
+      njm_store:
+        
+  rabbitmq:
+    image: rabbitmq:3.13.3
+    container_name: njm-rabbitmq
+    restart: on-failure
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      njm_store:
+        
+  mongo:
+    image: mongo:7-jammy
+    container_name: njm-mongo
+    restart: on-failure
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=development
+      - MONGO_INITDB_ROOT_PASSWORD=development
+    ports:
+      - "27017:27017"
+    volumes:
+      - njm-store-mongo:/var/lib/mongodb/data
+    networks:
+      njm_store:
+        
+  typesense:
+    image: typesense/typesense:26.0
+    restart: on-failure
+    ports:
+      - "8108:8108"
+    volumes:
+      - njm-store-typesense:/data
+    environment:
+      - TYPESENSE_DATA_DIR=/data
+      - TYPESENSE_API_KEY=development-key
+      - TYPESENSE_ENABLE_CORS=true
+        
+networks:
+  njm_store:
+    ipam:
+      config:
+        - subnet: 10.1.0.0/24
+          
+volumes:
+    njm-store-postgres:
+    njm-store-mongo:
+    njm-store-typesense:
