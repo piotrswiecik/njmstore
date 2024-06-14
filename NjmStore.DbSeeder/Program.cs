@@ -29,6 +29,7 @@ app.Configure(cfg =>
 {
     cfg.AddCommand<SeedCommand>("seed");
     cfg.AddCommand<GetSpotifyTokenCommand>("get-token");
+    cfg.AddCommand<GetSpotifyRecommendationsCommand>("get-recommendations");
 });
 
 return app.Run(args);

@@ -19,9 +19,19 @@ public class GetSpotifyTokenCommand(ISpotifyScraper scraper) : AsyncCommand<GetS
             new SpotifyClientCredentials(
                 ClientId: settings.ClientId,
                 ClientSecret: settings.ClientSecret));
-        
-        AnsiConsole.MarkupLine($"Token: {res.AccessToken}");
 
-        return 0;
+        if (!string.IsNullOrWhiteSpace(res.AccessToken))
+        {
+            AnsiConsole.MarkupLine("Token received successfully.");
+            AnsiConsole.MarkupLine(res.AccessToken);
+            return 0;
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("Failed to get token from Spotify API.");
+            return 1;
+        }
+        
+        
     }
 }
