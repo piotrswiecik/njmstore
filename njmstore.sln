@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NjmStore.SearchService", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NjmStore.AuthService", "NjmStore.AuthService\NjmStore.AuthService.csproj", "{73305A9D-8408-4B11-BB45-2EA0974ED7AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NjmStore.Test", "NjmStore.Test\NjmStore.Test.csproj", "{39D61AE7-6FB1-4044-9E79-3EB757BF5B93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{73305A9D-8408-4B11-BB45-2EA0974ED7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73305A9D-8408-4B11-BB45-2EA0974ED7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73305A9D-8408-4B11-BB45-2EA0974ED7AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39D61AE7-6FB1-4044-9E79-3EB757BF5B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D61AE7-6FB1-4044-9E79-3EB757BF5B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D61AE7-6FB1-4044-9E79-3EB757BF5B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D61AE7-6FB1-4044-9E79-3EB757BF5B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
