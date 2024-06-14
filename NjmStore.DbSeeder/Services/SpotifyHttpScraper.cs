@@ -84,8 +84,51 @@ public class SpotifyHttpScraper(IHttpClientFactory factory) : ISpotifyScraper
             .ToList();
     }
 
-    public Task GetAlbumTracks(string albumId)
+    /// <summary>
+    /// Fetch track for given album ID.
+    /// </summary>
+    /// <param name="albumId">Spotify album ID.</param>
+    /// <param name="token">Spotify bearer access token.</param>
+    /// <returns>List of track DTOs for album.</returns>
+    public async Task<List<SpotifyTrackObject?>> GetAlbumTracksAsync(string albumId, SpotifyAccessToken token)
     {
-        throw new NotImplementedException();
+        var apiClient = factory.CreateClient("SpotifyApi");
+        apiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+        
+        var queryBuilder = new StringBuilder();
+        queryBuilder.Append("albums/");
+        queryBuilder.Append(albumId);
+        
+        var res = await apiClient.GetAsync(queryBuilder.ToString());
+        
+        if (res.StatusCode != HttpStatusCode.OK)
+        {
+            throw new HttpRequestException($"HTTP request failed with status code {res.StatusCode}.");
+        }
+        
+        var responseContent = JsonNode.Parse(await res.Content.ReadAsStringAsync());
+        
+        if (responseContent == null)
+        {
+            throw new InvalidOperationException("Album API response content is null.");
+        }
+        
+        var tracks = responseContent["tracks"]?["items"]?.AsArray();
+        
+
+        if (tracks == null)
+        {
+            throw new InvalidOperationException("Album API response contains empty track list.");
+        }
+
+        return tracks
+            .Select(track => track.Deserialize<SpotifyTrackObject>(
+                new JsonSerializerOptions()
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+                }
+                ))
+            .ToList();
+        
     }
 }

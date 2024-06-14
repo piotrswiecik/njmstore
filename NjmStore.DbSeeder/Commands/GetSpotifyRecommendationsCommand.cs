@@ -18,7 +18,13 @@ public class GetSpotifyRecommendationsCommand(ISpotifyScraper scraper) : AsyncCo
         var token = await scraper.GetAccessTokenAsync(new SpotifyClientCredentials(
             settings.ClientId, settings.ClientSecret));
 
-        var tracks = await scraper.GetAlbumRecommendationsAsync("rock", token, 1);
+        var albums = await scraper.GetAlbumRecommendationsAsync("rock", token, 1);
+
+        var testAlbum = albums[0];
+
+        var tracks = await scraper.GetAlbumTracksAsync(testAlbum!.Id, token);
+        
+        AnsiConsole.MarkupLine(tracks[0].ToString());
         
         return 0;
     }

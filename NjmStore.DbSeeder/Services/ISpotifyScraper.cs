@@ -6,5 +6,5 @@ public interface ISpotifyScraper
 {
     public Task<SpotifyAccessToken> GetAccessTokenAsync(SpotifyClientCredentials clientCredentials);
     public Task<List<SpotifyAlbumObject?>> GetAlbumRecommendationsAsync(string genre, SpotifyAccessToken token, int limit);
-    public Task GetAlbumTracks(string albumId);
+    public Task<List<SpotifyTrackObject?>> GetAlbumTracksAsync(string albumId, SpotifyAccessToken token);
 }
