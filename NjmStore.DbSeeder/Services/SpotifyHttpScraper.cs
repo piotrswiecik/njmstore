@@ -1,7 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
 using NjmStore.DbSeeder.DTO;
-using Spectre.Console;
 
 namespace NjmStore.DbSeeder.Services;
 
@@ -22,8 +21,6 @@ public class SpotifyHttpScraper(IHttpClientFactory factory) : ISpotifyScraper
             $"{clientCredentials.ClientId}:{clientCredentials.ClientSecret}"));
         authClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", payload);
         var res = await authClient.PostAsync("token", content);
-        
-        AnsiConsole.MarkupLine(await res.Content.ReadAsStringAsync());
         
         var token = await JsonSerializer.DeserializeAsync<SpotifyAccessToken>(
             await res.Content.ReadAsStreamAsync());
