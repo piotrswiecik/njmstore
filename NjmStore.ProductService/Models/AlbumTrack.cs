@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace NjmStore.ProductService.Models;
 
+[PrimaryKey(nameof(TrackId), nameof(AlbumId))]
 public class AlbumTrack
 {
     public Guid TrackId { get; set; }
