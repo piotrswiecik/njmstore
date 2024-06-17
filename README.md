@@ -21,10 +21,10 @@ tbd
 
 ### DbSeeder service
 
-Standalone CLI service (outside of microservice architecture) used to provided main database with test data. Uses 
+Standalone CLI service (outside of microservice architecture) used to provide main database with test data. Uses 
 Spotify developer API & custom HTTP client to fetch records.
 
 ```shell
-# test runs
+# get spotify token with client credentials flow
 dotnet run --project NjmStore.DbSeeder get-token --client-id id --client-secret secret
 ```
